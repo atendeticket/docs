@@ -24,7 +24,8 @@
     },
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "API",
+        "icon": "server",
         "groups": [
           {
             "group": "Getting started",
