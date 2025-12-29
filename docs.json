@@ -13,10 +13,10 @@
       "anchors": [
         {
           "anchor": "Site",
-          "icon": "newspaper",
+          "icon": "earth-americas",
           "color": {
-            "light": "#00f9ff",
-            "dark": "#00f9ff"
+            "light": "#057f97",
+            "dark": "#057f97"
           },
           "href": "https://atendeticket.com"
         }
@@ -57,26 +57,6 @@
               "ai-tools/cursor",
               "ai-tools/claude-code",
               "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
