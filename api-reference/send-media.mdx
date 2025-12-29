@@ -158,6 +158,128 @@ A API suporta diversos tipos de arquivos de mídia:
 - **Documentos:** PDF, DOC, DOCX, XLS, XLSX
 - **Áudio:** MP3, OGG, WAV
 
+## Playground
+
+Teste a API diretamente aqui:
+
+<RequestExample>
+
+```bash cURL
+curl -X POST https://api.atendeticket.com/api/messages/send \
+  -H "Authorization: Bearer seu_token_aqui" \
+  -F "number=558599999999" \
+  -F "body=Confira esta imagem!" \
+  -F "medias=@/caminho/para/arquivo.jpg" \
+  -F "userId=" \
+  -F "queueId=" \
+  -F "sendSignature=false" \
+  -F "closeTicket=false"
+```
+
+```javascript JavaScript
+const formData = new FormData();
+formData.append('number', '558599999999');
+formData.append('body', 'Confira esta imagem!');
+formData.append('medias', fileInput.files[0]);
+formData.append('userId', '');
+formData.append('queueId', '');
+formData.append('sendSignature', 'false');
+formData.append('closeTicket', 'false');
+
+const response = await fetch('https://api.atendeticket.com/api/messages/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer seu_token_aqui'
+  },
+  body: formData
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+url = "https://api.atendeticket.com/api/messages/send"
+headers = {
+    "Authorization": "Bearer seu_token_aqui"
+}
+
+files = {
+    'medias': open('/caminho/para/arquivo.jpg', 'rb')
+}
+
+data = {
+    'number': '558599999999',
+    'body': 'Confira esta imagem!',
+    'userId': '',
+    'queueId': '',
+    'sendSignature': 'false',
+    'closeTicket': 'false'
+}
+
+response = requests.post(url, headers=headers, files=files, data=data)
+print(response.json())
+```
+
+```javascript Node.js
+const FormData = require('form-data');
+const fs = require('fs');
+const axios = require('axios');
+
+const form = new FormData();
+form.append('number', '558599999999');
+form.append('body', 'Confira esta imagem!');
+form.append('medias', fs.createReadStream('/caminho/para/arquivo.jpg'));
+form.append('userId', '');
+form.append('queueId', '');
+form.append('sendSignature', 'false');
+form.append('closeTicket', 'false');
+
+const response = await axios.post(
+  'https://api.atendeticket.com/api/messages/send',
+  form,
+  {
+    headers: {
+      'Authorization': 'Bearer seu_token_aqui',
+      ...form.getHeaders()
+    }
+  }
+);
+
+console.log(response.data);
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Success
+{
+  "success": true,
+  "messageId": "ABC123XYZ",
+  "status": "sent",
+  "mediaUrl": "https://cdn.atendeticket.com/media/abc123.jpg"
+}
+```
+
+```json Error
+{
+  "success": false,
+  "error": "Invalid token or connection not found"
+}
+```
+
+```json Error - File too large
+{
+  "success": false,
+  "error": "File size exceeds maximum allowed limit"
+}
+```
+
+</ResponseExample>
+
 ## Response
 
 The API will return a response indicating the success or failure of the media message sending operation.
