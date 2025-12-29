@@ -28,6 +28,14 @@
         "icon": "server",
         "groups": [
           {
+            "group": "API reference",
+            "pages": [
+              "api-reference/overview",
+              "api-reference/send-text",
+              "api-reference/send-media"
+            ]
+          },
+          {
             "group": "Getting started",
             "pages": [
               "index",
