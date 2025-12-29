@@ -1,0 +1,52 @@
+---
+title: Overview
+description: Introdução à API do AtendeTicket para envio de mensagens
+---
+
+## Bem-vindo à API do AtendeTicket
+
+A API do AtendeTicket permite que você envie mensagens de texto e mídia de forma programática através das suas conexões configuradas.
+
+## Antes de começar
+
+Antes de enviar mensagens, você precisa:
+
+1. **Cadastrar o token** vinculado à conexão que enviará as mensagens
+2. Acesse o menu **Conexões**
+3. Clique no botão **Editar** da conexão
+4. Insira o token no campo apropriado
+
+## Formato do número
+
+O número para envio não deve ter máscara ou caracteres especiais e deve ser composto por:
+
+- **Código do País** (ex: 55 para Brasil)
+- **DDD** (ex: 85)
+- **Número** (ex: 999999999)
+
+**Exemplo:** `558599999999`
+
+## Autenticação
+
+Todas as requisições devem incluir o token de autenticação no header:
+
+```
+Authorization: Bearer {seu_token}
+```
+
+## Base URL
+
+```
+https://api.atendeticket.com
+```
+
+## Próximos passos
+
+<CardGroup cols={2}>
+  <Card title="Mensagens de texto" icon="message" href="/api-reference/send-text">
+    Envie mensagens de texto simples
+  </Card>
+  <Card title="Mensagens de mídia" icon="image" href="/api-reference/send-media">
+    Envie mensagens com arquivos anexados
+  </Card>
+</CardGroup>
