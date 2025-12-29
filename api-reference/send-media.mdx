@@ -1,0 +1,171 @@
+---
+title: Send media message
+description: Envie mensagens com arquivos de mídia através da API do AtendeTicket
+---
+
+## Endpoint
+
+```
+POST https://api.atendeticket.com/api/messages/send
+```
+
+## Headers
+
+| Header | Value | Required |
+|--------|-------|----------|
+| `Authorization` | `Bearer {token}` | Yes |
+| `Content-Type` | `multipart/form-data` | Yes |
+
+## Form data
+
+<ParamField body="number" type="string" required>
+  Número do destinatário sem máscara ou caracteres especiais.
+  
+  Formato: Código do País + DDD + Número
+  
+  **Exemplo:** `558599999999`
+</ParamField>
+
+<ParamField body="body" type="string">
+  Legenda ou texto que acompanha a mídia (opcional)
+</ParamField>
+
+<ParamField body="medias" type="file" required>
+  Arquivo de mídia a ser enviado (imagem, vídeo, documento, etc.)
+</ParamField>
+
+<ParamField body="userId" type="string">
+  ID do usuário/atendente responsável pelo envio. Use `""` se não aplicável
+</ParamField>
+
+<ParamField body="queueId" type="string">
+  ID da fila para organização. Use `""` se não aplicável
+</ParamField>
+
+<ParamField body="sendSignature" type="boolean">
+  Define se a mensagem deve ser assinada
+  
+  **Valores:** `true` ou `false`
+</ParamField>
+
+<ParamField body="closeTicket" type="boolean">
+  Define se o ticket deve ser encerrado após o envio
+  
+  **Valores:** `true` ou `false`
+</ParamField>
+
+## Example with cURL
+
+```bash
+curl -X POST https://api.atendeticket.com/api/messages/send \
+  -H "Authorization: Bearer seu_token_aqui" \
+  -F "number=558599999999" \
+  -F "body=Confira esta imagem!" \
+  -F "medias=@/caminho/para/arquivo.jpg" \
+  -F "userId=" \
+  -F "queueId=" \
+  -F "sendSignature=false" \
+  -F "closeTicket=false"
+```
+
+## Example with JavaScript
+
+```javascript
+const formData = new FormData();
+formData.append('number', '558599999999');
+formData.append('body', 'Confira esta imagem!');
+formData.append('medias', fileInput.files[0]); // arquivo do input
+formData.append('userId', '');
+formData.append('queueId', '');
+formData.append('sendSignature', 'false');
+formData.append('closeTicket', 'false');
+
+const response = await fetch('https://api.atendeticket.com/api/messages/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer seu_token_aqui'
+  },
+  body: formData
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+## Example with Python
+
+```python
+import requests
+
+url = "https://api.atendeticket.com/api/messages/send"
+headers = {
+    "Authorization": "Bearer seu_token_aqui"
+}
+
+files = {
+    'medias': open('/caminho/para/arquivo.jpg', 'rb')
+}
+
+data = {
+    'number': '558599999999',
+    'body': 'Confira esta imagem!',
+    'userId': '',
+    'queueId': '',
+    'sendSignature': 'false',
+    'closeTicket': 'false'
+}
+
+response = requests.post(url, headers=headers, files=files, data=data)
+print(response.json())
+```
+
+## Example with Node.js (using form-data)
+
+```javascript
+const FormData = require('form-data');
+const fs = require('fs');
+const axios = require('axios');
+
+const form = new FormData();
+form.append('number', '558599999999');
+form.append('body', 'Confira esta imagem!');
+form.append('medias', fs.createReadStream('/caminho/para/arquivo.jpg'));
+form.append('userId', '');
+form.append('queueId', '');
+form.append('sendSignature', 'false');
+form.append('closeTicket', 'false');
+
+const response = await axios.post(
+  'https://api.atendeticket.com/api/messages/send',
+  form,
+  {
+    headers: {
+      'Authorization': 'Bearer seu_token_aqui',
+      ...form.getHeaders()
+    }
+  }
+);
+
+console.log(response.data);
+```
+
+## Supported media types
+
+A API suporta diversos tipos de arquivos de mídia:
+
+- **Imagens:** JPG, PNG, GIF, WebP
+- **Vídeos:** MP4, AVI, MOV
+- **Documentos:** PDF, DOC, DOCX, XLS, XLSX
+- **Áudio:** MP3, OGG, WAV
+
+## Response
+
+The API will return a response indicating the success or failure of the media message sending operation.
+
+<Warning>
+  Certifique-se de que o arquivo não exceda o tamanho máximo permitido pela plataforma.
+</Warning>
+
+<Note>
+  O token deve estar corretamente cadastrado na conexão antes de enviar mensagens.
+</Note>
