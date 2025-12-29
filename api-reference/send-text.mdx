@@ -125,6 +125,89 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.json())
 ```
 
+## Playground
+
+Teste a API diretamente aqui:
+
+<RequestExample>
+
+```bash cURL
+curl -X POST https://api.atendeticket.com/api/messages/send \
+  -H "Authorization: Bearer seu_token_aqui" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "number": "558599999999",
+    "body": "Olá! Esta é uma mensagem de teste.",
+    "userId": "",
+    "queueId": "",
+    "sendSignature": false,
+    "closeTicket": false
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.atendeticket.com/api/messages/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer seu_token_aqui',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    number: '558599999999',
+    body: 'Olá! Esta é uma mensagem de teste.',
+    userId: '',
+    queueId: '',
+    sendSignature: false,
+    closeTicket: false
+  })
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+url = "https://api.atendeticket.com/api/messages/send"
+headers = {
+    "Authorization": "Bearer seu_token_aqui",
+    "Content-Type": "application/json"
+}
+payload = {
+    "number": "558599999999",
+    "body": "Olá! Esta é uma mensagem de teste.",
+    "userId": "",
+    "queueId": "",
+    "sendSignature": False,
+    "closeTicket": False
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Success
+{
+  "success": true,
+  "messageId": "ABC123XYZ",
+  "status": "sent"
+}
+```
+
+```json Error
+{
+  "success": false,
+  "error": "Invalid token or connection not found"
+}
+```
+
+</ResponseExample>
+
 ## Response
 
 The API will return a response indicating the success or failure of the message sending operation.
